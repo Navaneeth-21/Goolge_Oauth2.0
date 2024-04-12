@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.3.1",
+    "nodemon": "^3.1.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+  },
+  "name": "goole_oauth2",
+  "version": "1.0.0",
+  "description": "An google oauth practise",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Navaneeth G",
+  "license": "ISC"
+}
