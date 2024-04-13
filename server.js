@@ -44,29 +44,35 @@ app.get('/', (req, res) => {
 });
 
 
-
 // login route
-app.get('/login',(req,res)=>{
-    res.send(`login........`)
+app.get('/login', (req, res) => {
+    res.render('login');
 });
 
-
-// logout route
-app.get('/logout' , (req,res)=>{
-    res.send(`Your are logged out`);
-});
 
 // Authenticate with google
 app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: '/failure' }),
     function (req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
     });
 
+
+// logout route
+app.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error logging out');
+        } else {
+            res.redirect('/');
+        }
+    });
+});
 
 // start server
 const start = async () => {
