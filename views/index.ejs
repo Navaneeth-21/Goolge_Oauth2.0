@@ -4,23 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OAUTH</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .jumbotron {
+            background-color: #343a40;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 class="text-center mt-3">Google Oauth Practise</h1>
 
-    <% if (user) { %>
-        <div class="container">
-            <h3 class="text-center mt-4 mb-3">Hello, <%= user.displayName %>!</h3>
+    <div class="container">
+        <div class="jumbotron mt-5">
+            <h1 class="display-4">Welcome to our website!</h1>
+            <p class="lead">This is a landing page example designed using Bootstrap.</p>
+            <hr class="my-4">
+            <p>Please login or register to continue.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="/login" role="button">Login</a>
+                <a class="btn btn-success btn-lg" href="/register" role="button">Register</a>
+            </p>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-            <a href="/logout" class="btn btn-danger">Logout</a>
-        </div>
-        <% } else { %>
-            <%- include('login.ejs') %>
-                <% } %>
+    </div>
+
 </body>
 
 </html>

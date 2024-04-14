@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('./models/user');
+
+const googleUser = require('./models/google_user');
 
 module.exports = function (passport) {
 
@@ -11,7 +12,7 @@ module.exports = function (passport) {
 
   passport.deserializeUser((id, done) => {
 
-    User.findById(id)
+    googleUser.findById(id)
 
       .then(user => {
         done(null, user);
@@ -34,20 +35,25 @@ module.exports = function (passport) {
     
   },
     async (accessToken, refreshToken, profile, done) => {
-      // Check if user already exists in database
-      let user = await User.findOne({ googleId: profile.id });
 
-      if (!user) {
-        // Create new user
-        user = new User({
-          googleID: profile.id,
-          displayName: profile.displayName,
-          email: profile.emails[0].value,
-          // Add other necessary user data here
-        });
-        await user.save();
+      try {
+        // Check if user already exists in database
+        let user = await googleUser.findOne({ googleID: profile.id });
+
+        if (!user) {
+          // Create new user if not found
+          user = new googleUser({
+            googleID: profile.id,
+            username: profile.displayName,
+            email: profile.emails[0].value,
+            // Add other necessary user data here
+          });
+          await user.save();
+        }
+
+        return done(null, user);
+      } catch (error) {
+        return done(err);
       }
-
-      return done(null, user);
     }));
 };
